@@ -8,18 +8,17 @@ SamplePlayer upwards;
 SamplePlayer depth_noise2;
 ControlP5 cp5;
 
-Glide depthGainGlide;
-float depthGainAmount;
-Gain depthGain;
+// Depth
+Glide depthGainGlide, depth2GainGlide;
+float depthGainAmount, depth2GainAmount;
+Gain depthGain, depth2Gain;
 
-
-Glide depth2GainGlide;
-float depth2GainAmount;
-Gain depth2Gain;
+// Forward, Left, Right, Backward Glide and Gains
+Glide fowardGlide, backwardGlide, leftGlide, rightGlide;
+Gain fowardGain, backwardGain, leftGain, rightGain;
 
 Gain ambGain;
 Glide ambGainGlide;
-
 Gain upGain;
 Glide upGainGlide;
 
