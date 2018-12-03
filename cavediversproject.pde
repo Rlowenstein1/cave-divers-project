@@ -2,11 +2,9 @@ import controlP5.*;
 import beads.*;
 import org.jaudiolibs.beads.*;
 
-SamplePlayer ambient_water;
-SamplePlayer depth_noise;
-SamplePlayer upwards;
-SamplePlayer depth_noise2;
+SamplePlayer ambient_water, depth_noise, upwards, depth_noise2;
 ControlP5 cp5;
+Slider forwardSlider, backwardSlider, leftSlider, rightSlider;
 
 // Depth
 Glide depthGainGlide, depth2GainGlide;
@@ -24,11 +22,7 @@ Glide upGainGlide;
 
 Panner upPan;
 Glide panGlide;
-
 BiquadFilter filter;
-
-
-
 
 void setup() {
   size(500, 480);
@@ -57,55 +51,8 @@ void setup() {
   depth_noise2.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
 
   cp5 = new ControlP5(this);
-      
-  cp5.addSlider("Depth")
-    .setPosition(10, 420)
-    .setSize(160,15)
-    .setRange(100,0)
-    .setValue(0)
-    .setLabel("Depth (m)");
-  cp5.addSlider("Forward")
-    .setPosition(230, 10)
-    .setSize(20,180)
-    .setValue(50)
-    .setRange(0, 100)
-    .setLabel("Forward")
-    .setSliderMode(Slider.FLEXIBLE);
-  cp5.addSlider("Backward")
-    .setPosition(230, 270)
-    .setSize(20,180)
-    .setValue(50)
-    .setSliderMode(Slider.FLEXIBLE)
-    .setRange(100, 0)
-    .setLabel("Backward");
-  cp5.addSlider("Left")
-    .setPosition(10,220)
-    .setSize(180, 20)
-    .setValue(0)
-    .setRange(-1.0,1.0)
-    .setLabel("Left")
-    .setSliderMode(Slider.FLEXIBLE);
-  cp5.addSlider("Right")
-    .setPosition(280,220)
-    .setSize(180, 20)
-    .setValue(0)
-    .setRange(-1.0,1.0)
-    .setLabel("Right")
-    .setSliderMode(Slider.FLEXIBLE);
-  //cp5.addButton("Team Locator")
-  //  .setPosition(200, 205)
-  //  .setSize(80, 50); 
-  cp5.addButton("upAction")
-    .setPosition(400, 30)
-    .setSize(80, 40)
-    .setLabel("Up")
-    ; 
-  cp5.addButton("fowardAction")
-    .setPosition(10, 30)
-    .setSize(80, 40)
-    .setLabel("Forward")
-    
-    ; 
+  drawCP5(); // Plz check helper_functions
+ 
   filter = new BiquadFilter(ac, BiquadFilter.LP, 300.0, 0.5f);
   panGlide = new Glide(ac, 0.0, 10);
   upPan = new Panner(ac, panGlide);
@@ -117,7 +64,7 @@ void setup() {
   depth2Gain.setValue(0.0);
   filter.addInput(depthGain);
   filter.addInput(depth2Gain);
- 
+  
   ambGain.addInput(ambient_water);
   filter.addInput(ambGain);
  
@@ -149,17 +96,25 @@ public void Depth(float value) {
 }
 
 public void Left(float value) {
-  panGlide.setValue(value / 1.0);
+  if(value>0) {
+     rightSlider.setValue(0.0);
+  }
 }
 
 public void Right(float value) {
-  panGlide.setValue(value / 1.0);
+  if(value>0) {
+     leftSlider.setValue(0.0);
+  }
 }
 
 public void Forward(float value) {
-  panGlide.setValue(value / 1.0);
+  if(value>0) {
+     backwardSlider.setValue(0.0);
+  }
 }
 
 public void Backward(float value) {
-  panGlide.setValue(value / 1.0);
+  if(value>0) {
+     forwardSlider.setValue(0.0);
+  }
 }
