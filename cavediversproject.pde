@@ -13,7 +13,7 @@ Glide depthGainGlide, depth2GainGlide;
 float depthGainAmount, depth2GainAmount;
 Gain depthGain, depth2Gain;
 
-// Forward, Left, Right, Backward Glide and Gains
+// Forward, Left, Right, Backward Glides and Gains
 Glide forwardGlide, backwardGlide, leftGlide, rightGlide;
 Gain forwardGain, backwardGain, leftGain, rightGain;
 
@@ -25,6 +25,10 @@ Glide upGainGlide;
 Panner upPan;
 Glide panGlide;
 BiquadFilter filter;
+
+// Frequency Controllers
+Glide freqGlide;
+WavePlayer freqWP;
 
 void setup() {
   size(500, 480);
@@ -53,12 +57,19 @@ void setup() {
   filter.addInput(ambGain);
   upGain.addInput(upwards);
   upPan.addInput(upGain);
+  
+  freqGlide = new Glide(ac, 20, 50);
+  freqWP = new WavePlayer(ac, freqGlide, Buffer.SINE);
+  depthGain.addInput(freqWP);
+  depth2Gain.addInput(freqWP);
  
   addInputsToFilters(); // helper function
   //forwardGlide.setValue(0.0);
   //backwardGlide.setValue(0.0);
   //leftGlide.setValue(0.0);
   //rightGlide.setValue(0.0);
+  
+  
   ac.out.addInput(filter);
   ac.start();
 }
@@ -85,28 +96,36 @@ public void Depth(float value) {
 public void Left(float value) {
   if(value>0) {
      rightSlider.setValue(0.0);
+     freqGlide.setValue(0);
   }
   leftGlide.setValue(pow(value, 1.5)/100.0);
+  freqGlide.setValue(pow(value, 1.5)/100.0);
   rightGlide.setValue(0.0);
 }
 
 public void Right(float value) {
   if(value>0) {
      leftSlider.setValue(0.0);
+     freqGlide.setValue(0);
   }
   rightGlide.setValue(pow(value, 1.5)/100.0);
+  freqGlide.setValue(pow(value, 1.5)/100.0);
 } 
 
 public void Forward(float value) {
   if(value>0) {
      backwardSlider.setValue(0.0);
+     freqGlide.setValue(0);
   }
   forwardGlide.setValue(pow(value, 1.5)/100.0);
+  freqGlide.setValue(pow(value, 1.5)/100.0);
 }
 
 public void Backward(float value) {
   if(value>0) {
      forwardSlider.setValue(0.0);
+     freqGlide.setValue(0);
   }
   backwardGlide.setValue(pow(value, 1.5)/100.0);
+  freqGlide.setValue(pow(value, 1.5)/100.0);
 }
