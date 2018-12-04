@@ -98,17 +98,15 @@ public void Right(float value) {
 } 
 
 public void Forward(float value) {
-  forwardGlide.setValue(0.0);
-  backwardGlide.setValue(pow(value, 1.5)/100.0);
   if(value>0) {
      backwardSlider.setValue(0.0);
   }
+  forwardGlide.setValue(pow(value, 1.5)/100.0);
 }
 
 public void Backward(float value) {
-  forwardGlide.setValue(pow(value, 1.5)/100.0);
-  backwardGlide.setValue(0.0);
   if(value>0) {
      forwardSlider.setValue(0.0);
   }
+  backwardGlide.setValue(pow(value, 1.5)/100.0);
 }
