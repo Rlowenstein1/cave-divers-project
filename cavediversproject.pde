@@ -3,6 +3,8 @@ import beads.*;
 import org.jaudiolibs.beads.*;
 
 SamplePlayer ambient_water, depth_noise, upwards, depth_noise2;
+SamplePlayer forwardsp, backwardsp, leftsp, rightsp;
+
 ControlP5 cp5;
 Slider forwardSlider, backwardSlider, leftSlider, rightSlider;
 
@@ -12,8 +14,8 @@ float depthGainAmount, depth2GainAmount;
 Gain depthGain, depth2Gain;
 
 // Forward, Left, Right, Backward Glide and Gains
-Glide fowardGlide, backwardGlide, leftGlide, rightGlide;
-Gain fowardGain, backwardGain, leftGain, rightGain;
+Glide forwardGlide, backwardGlide, leftGlide, rightGlide;
+Gain forwardGain, backwardGain, leftGain, rightGain;
 
 Gain ambGain;
 Glide ambGainGlide;
@@ -28,22 +30,8 @@ void setup() {
   size(500, 480);
   ac = new AudioContext(); 
   
-  depthGainGlide = new Glide (ac, 0.5, 50);
-  depthGain = new Gain(ac, 1, depthGainGlide);
-  
-  depth2GainGlide = new Glide (ac, 0.5, 50);
-  depth2Gain = new Gain(ac, 1, depth2GainGlide);
-  
-  ambGainGlide = new Glide(ac, 0.5, 50);
-  ambGain = new Gain(ac, 1, ambGainGlide);
-  
-  upGainGlide = new Glide(ac, 0.5, 50);
-  upGain = new Gain(ac, 1, upGainGlide);
-  
-  ambient_water = getSamplePlayer("ambient.wav");
-  depth_noise = getSamplePlayer("depth.wav");
-  upwards = getSamplePlayer("up.wav");
-  depth_noise2 = getSamplePlayer("up2.wav");
+  initializeGainsAndGlides();  
+  getSamplePlayers();
   
   ambient_water.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
   depth_noise.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);

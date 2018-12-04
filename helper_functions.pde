@@ -74,3 +74,43 @@ public void drawCP5() {
     .setLabel("Forward")
     ; 
 }
+
+public void initializeGainsAndGlides() {
+  depthGainGlide = new Glide (ac, 0.5, 50);
+  depthGain = new Gain(ac, 1, depthGainGlide);
+  depth2GainGlide = new Glide (ac, 0.5, 50);
+  depth2Gain = new Gain(ac, 1, depth2GainGlide);
+  ambGainGlide = new Glide(ac, 0.5, 50);
+  ambGain = new Gain(ac, 1, ambGainGlide);
+  upGainGlide = new Glide(ac, 0.5, 50);
+  upGain = new Gain(ac, 1, upGainGlide);
+  
+//  Glide forwardGlide, bacforwardGlidekwardGlide, leftGlide, rightGlide;
+//Gain forwardGain, backwardGain, leftGain, rightGain;
+  forwardGlide = new Glide(ac, 0.5, 50);
+  backwardGlide = new Glide(ac, 0.5, 50);
+  leftGlide = new Glide(ac, 0.5, 50);
+  rightGlide = new Glide(ac, 0.5, 50);
+  forwardGain = new Gain(ac, 1, forwardGlide);
+  backwardGain = new Gain(ac, 1, backwardGlide);
+  leftGain = new Gain(ac, 1, leftGlide);
+  rightGain = new Gain(ac, 1, rightGlide);
+  // Glides.
+  forwardGlide.setValue(0.0);
+  backwardGlide.setValue(0.0);
+  leftGlide.setValue(0.0);
+  rightGlide.setValue(0.0);
+}
+
+public void getSamplePlayers() {
+  ambient_water = getSamplePlayer("ambient.wav");
+  depth_noise = getSamplePlayer("depth.wav");
+  upwards = getSamplePlayer("up.wav");
+  depth_noise2 = getSamplePlayer("up2.wav");
+
+  // Done
+  forwardsp = getSamplePlayer("ambient.wav");
+  backwardsp = getSamplePlayer("depth.wav");
+  leftsp = getSamplePlayer("up.wav");
+  rightsp = getSamplePlayer("up2.wav");
+}
