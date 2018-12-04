@@ -135,6 +135,6 @@ public void getSamplePlayers() {
   // To be changed.
   forwardsp = getSamplePlayer("cursormove.wav");
   backwardsp = getSamplePlayer("divide.wav");
-  leftsp = getSamplePlayer("glass_breaking.wav");
+  leftsp = getSamplePlayer("sonar.wav");
   rightsp = getSamplePlayer("message.wav");
 }
