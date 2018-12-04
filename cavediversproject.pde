@@ -4,6 +4,7 @@ import org.jaudiolibs.beads.*;
 
 SamplePlayer ambient_water, depth_noise, upwards, depth_noise2;
 SamplePlayer forwardsp, backwardsp, leftsp, rightsp;
+SamplePlayer upActionSp, forwardActionSp;
 
 ControlP5 cp5;
 Slider forwardSlider, backwardSlider, leftSlider, rightSlider;
@@ -12,6 +13,8 @@ Slider forwardSlider, backwardSlider, leftSlider, rightSlider;
 Glide depthGainGlide, depth2GainGlide;
 float depthGainAmount, depth2GainAmount;
 Gain depthGain, depth2Gain;
+
+Gain forwardActionGain, upActionGain;
 
 // Forward, Left, Right, Backward Glide and Gains
 Glide forwardGlide, backwardGlide, leftGlide, rightGlide;
@@ -37,7 +40,10 @@ void setup() {
   cp5 = new ControlP5(this);
   drawCP5(); // Plz check helper_functions
  
-  filter = new BiquadFilter(ac, BiquadFilter.LP, 300.0, 0.5f);
+  filter = new BiquadFilter(ac, BiquadFilter.AP, 300.0, 0.5f);
+  //filter = new BiquadFilter(ac, BiquadFilter.HP, 300.0, 0.5f);
+  //filter = new BiquadFilter(ac, BiquadFilter.HP, 300.0, 0.5f);
+  //filter = new BiquadFilter(ac, BiquadFilter.HP, 300.0, 0.5f);
   panGlide = new Glide(ac, 0.0, 10);
   upPan = new Panner(ac, panGlide);
   ambGain.setGain(0.5);
@@ -55,10 +61,6 @@ void setup() {
   upPan.addInput(upGain);
  
   addInputsToFilters(); // helper function
-  //forwardGlide.setValue(0.0);
-  //backwardGlide.setValue(0.0);
-  //leftGlide.setValue(0.0);
-  //rightGlide.setValue(0.0);
   ac.out.addInput(filter);
   ac.start();
 }
@@ -109,4 +111,14 @@ public void Backward(float value) {
      forwardSlider.setValue(0.0);
   }
   backwardGlide.setValue(pow(value, 1.5)/100.0);
+}
+
+public void upAction(float value) {
+  upActionGain.setGain(5.0);
+  upActionSp.reTrigger();
+}
+
+public void forwardAction(float value) {
+  forwardActionGain.setGain(5.0);
+  forwardActionSp.reTrigger();
 }

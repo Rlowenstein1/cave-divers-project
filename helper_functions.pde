@@ -79,7 +79,7 @@ public void drawCP5() {
     .setSize(80, 40)
     .setLabel("Up")
     ; 
-  cp5.addButton("fowardAction")
+  cp5.addButton("forwardAction")
     .setPosition(10, 30)
     .setSize(80, 40)
     .setLabel("Forward")
@@ -96,8 +96,6 @@ public void initializeGainsAndGlides() {
   upGainGlide = new Glide(ac, 0.5, 50);
   upGain = new Gain(ac, 1, upGainGlide);
   
-//  Glide forwardGlide, bacforwardGlidekwardGlide, leftGlide, rightGlide;
-//Gain forwardGain, backwardGain, leftGain, rightGain;
   forwardGlide = new Glide(ac, 0.5, 50);
   backwardGlide = new Glide(ac, 0.5, 50);
   leftGlide = new Glide(ac, 0.5, 50);
@@ -108,6 +106,10 @@ public void initializeGainsAndGlides() {
   leftGlide.setValue(0.0);
   rightGlide.setValue(0.0);
   
+  forwardActionGain = new Gain(ac, 1, 50);
+  upActionGain = new Gain(ac, 1, 50);
+  forwardActionGain.setGain(0.0);
+  upActionGain.setGain(0.0);
   
   forwardGain = new Gain(ac, 1, forwardGlide);
   backwardGain = new Gain(ac, 1, backwardGlide);
@@ -116,6 +118,9 @@ public void initializeGainsAndGlides() {
 }
 
 public void addInputsToFilters() {
+  forwardActionGain.addInput(forwardActionSp);
+  upActionGain.addInput(upActionSp);
+  
   forwardGain.addInput(forwardsp);
   leftGain.addInput(leftsp);
   rightGain.addInput(rightsp);
@@ -124,6 +129,8 @@ public void addInputsToFilters() {
   filter.addInput(leftGain);
   filter.addInput(backwardGain);
   filter.addInput(rightGain);
+  filter.addInput(forwardActionGain);
+  filter.addInput(upActionGain);
 }
 
 public void getSamplePlayers() {
@@ -133,8 +140,13 @@ public void getSamplePlayers() {
   depth_noise2 = getSamplePlayer("up2.wav");
 
   // To be changed.
-  forwardsp = getSamplePlayer("cursormove.wav");
-  backwardsp = getSamplePlayer("divide.wav");
+  forwardsp = getSamplePlayer("sonar.wav");
+  backwardsp = getSamplePlayer("sonar.wav");
   leftsp = getSamplePlayer("sonar.wav");
-  rightsp = getSamplePlayer("message.wav");
+  rightsp = getSamplePlayer("sonar.wav");
+  
+  //orientation sounds
+  upActionSp = getSamplePlayer("up.wav");
+  forwardActionSp = getSamplePlayer("forward.wav");
+  
 }
