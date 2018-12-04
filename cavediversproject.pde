@@ -91,11 +91,10 @@ public void Left(float value) {
 }
 
 public void Right(float value) {
-  leftGlide.setValue(0.0);
-  rightGlide.setValue(pow(value, 1.5)/100.0);
   if(value>0) {
      leftSlider.setValue(0.0);
   }
+  rightGlide.setValue(pow(value, 1.5)/100.0);
 } 
 
 public void Forward(float value) {
