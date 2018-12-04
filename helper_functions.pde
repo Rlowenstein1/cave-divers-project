@@ -116,10 +116,14 @@ public void initializeGainsAndGlides() {
 }
 
 public void addInputsToFilters() {
-  filter.addInput(forwardsp);
-  filter.addInput(leftsp);
-  filter.addInput(backwardsp);
-  filter.addInput(rightsp);
+  forwardGain.addInput(forwardsp);
+  leftGain.addInput(leftsp);
+  rightGain.addInput(rightsp);
+  backwardGain.addInput(backwardsp);
+  filter.addInput(forwardGain);
+  filter.addInput(leftGain);
+  filter.addInput(backwardGain);
+  filter.addInput(rightGain);
 }
 
 public void getSamplePlayers() {
